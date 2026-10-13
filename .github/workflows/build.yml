@@ -15,10 +15,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
           cache: gradle
 
@@ -26,6 +26,21 @@ jobs:
         run: |
           echo "APP_NAME=NutYou" > .env
           echo "APP_NAME=NutYou" > .env.example
+
+      - name: Update Gradle wrapper to 9.3.1
+        run: |
+          mkdir -p gradle/wrapper
+          if [ -f "gradle/wrapper/gradle-wrapper.properties" ]; then
+            sed -i 's/gradle-.*-bin.zip/gradle-9.3.1-bin.zip/' gradle/wrapper/gradle-wrapper.properties
+          else
+            echo "distributionBase=GRADLE_USER_HOME" > gradle/wrapper/gradle-wrapper.properties
+            echo "distributionPath=wrapper/dists" >> gradle/wrapper/gradle-wrapper.properties
+            echo "distributionUrl=https\://services.gradle.org/distributions/gradle-9.3.1-bin.zip" >> gradle/wrapper/gradle-wrapper.properties
+            echo "networkTimeout=10000" >> gradle/wrapper/gradle-wrapper.properties
+            echo "validateDistributionUrl=true" >> gradle/wrapper/gradle-wrapper.properties
+            echo "zipStoreBase=GRADLE_USER_HOME" >> gradle/wrapper/gradle-wrapper.properties
+            echo "zipStorePath=wrapper/dists" >> gradle/wrapper/gradle-wrapper.properties
+          fi
 
       - name: Ensure gradle-wrapper.jar exists
         run: |
