@@ -22,6 +22,15 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      - name: Create .env file if missing
+        run: |
+          if [ ! -f .env ]; then
+            echo "APP_NAME=NutYou" > .env
+          fi
+          if [ ! -f .env.example ]; then
+            echo "APP_NAME=NutYou" > .env.example
+          fi
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
@@ -31,6 +40,6 @@ jobs:
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ZenStreak-Debug-APK
+          name: NutYou-Debug-APK
           path: app/build/outputs/apk/debug/*.apk
           retention-days: 14
