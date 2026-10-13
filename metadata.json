@@ -1,0 +1,6 @@
+{
+  "name": "NutYou",
+  "description": "NutYou - Male Habit Recovery, Clean Streak Tracker & Analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
